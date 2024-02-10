@@ -16,11 +16,21 @@ app
 // initialization sequelize db
 sequelize.initDb();
 
+// endpoint of app
 require("./src/routes/findAllPokemons")(app);
 require("./src/routes/findPokemonByPk")(app);
 require("./src/routes/createPokemon")(app);
 require("./src/routes/updatePokemon")(app);
 require("./src/routes/deletePokemon")(app);
+
+// gestion des erreurs
+
+/// cas du status code 404
+app.use(({ res }) => {
+  const message =
+    "Impossible de trouver la ressoucre demandée ! Vous pouvez essayer une autre URL.";
+  res.status(404).json({ message });
+});
 
 app.listen(port, () =>
   console.log(
