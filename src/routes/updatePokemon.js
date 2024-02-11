@@ -1,4 +1,5 @@
 const { Pokemon } = require("../db/sequelize");
+const { ValidationError, UniqueContrainError } = require("sequelize");
 
 module.exports = (app) => {
   app.put("/api/pokemons/:id", (req, res) => {
@@ -19,6 +20,14 @@ module.exports = (app) => {
         });
       })
       .catch((err) => {
+        if (err instanceof ValidationError) {
+          return res.status(400).json({ message: err.message, data: err });
+        }
+
+        if (err instanceof UniqueContrainError) {
+          return res.status(400).json({ message: err.message, data: err });
+        }
+
         const message = `Le pokemon n'a pas pu être modifié. Ressayez dans quelques instants.`;
         res.status(500).json({ message, data: err });
       });
