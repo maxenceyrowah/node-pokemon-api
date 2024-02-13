@@ -16,15 +16,17 @@ app
 // initialization sequelize db
 sequelize.initDb();
 
-// endpoint of app
+// endpoint of pokemons
 require("./src/routes/findAllPokemons")(app);
 require("./src/routes/findPokemonByPk")(app);
 require("./src/routes/createPokemon")(app);
 require("./src/routes/updatePokemon")(app);
 require("./src/routes/deletePokemon")(app);
 
-// gestion des erreurs
+// endpoint of user
+require("./src/routes/login")(app);
 
+// gestion des erreurs
 /// cas du status code 404
 app.use(({ res }) => {
   const message =
