@@ -1,0 +1,21 @@
+version: "3.1"
+
+services:
+  db:
+    container_name: "node-pokemon-db"
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: pokedex
+    ports:
+      - 3306:3306
+
+  adminer:
+    container_name: "node-pokemon-admin"
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - db
