@@ -2,12 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const sequelize = require("./src/db/sequelize");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // middleware
-app.use(favicon(__dirname + "/assets/favicon.ico")).use(bodyParser.json());
+app
+  .use(favicon(__dirname + "/assets/favicon.ico"))
+  .use(bodyParser.json())
+  .use(cors());
 
 // init heroku app
 app.get("/", (req, res) => {
